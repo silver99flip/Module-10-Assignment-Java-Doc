@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Textread {
+    public static void main(String[] args) throws IOException {
+        // Replace the path with your own
+        File file = new File("C:\\Users\\eddie\\Desktop");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+        Map<String, Long> counts = new HashMap<>();
+        while ((line = br.readLine()) != null) {
+            // Customize the regex according to your needs
+            String[] words = line.split("[\\s.;,?:!()\"]+");
+            for (String word : words) {
+                word = word.trim();
+                if (word.length() > 0) {
+                    if (counts.containsKey(word)) {
+                        counts.put(word, counts.get(word) + 1);
+                    } else {
+                        counts.put(word, 1L);
+                    }
+                }
+            }
+        }
+        for (Map.Entry<String, Long> entry : counts.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+        br.close();
+    }
+    
+}
